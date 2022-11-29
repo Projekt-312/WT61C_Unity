@@ -16,11 +16,13 @@ namespace DefaultNamespace
 
         private void FixedUpdate()
         {
+            Vector3 shownRotation = angularControl.rotationShown;
             Vector3 shownVelocity = angularControl.velocityShown;
-            Vector3 shownAcceleration = angularControl.angularInput;
+            Vector3 shownAcceleration = angularControl.accInput;
+            string tempRotation = shownRotation.x.ToString("#0.00") + ", " + shownRotation.y.ToString("#0.00")  + ", " + shownRotation.z.ToString("#0.00") ;
             string tempVelocity = shownVelocity.x.ToString("#0.00") + ", " + shownVelocity.y.ToString("#0.00")  + ", " + shownVelocity.z.ToString("#0.00") ;
             string tempAcceleration = shownAcceleration.x.ToString("#0.00") + ", " + shownAcceleration.y.ToString("#0.00")  + ", " + shownAcceleration.z.ToString("#0.00") ;
-            data.text = "AccelerationVelocity = (x,y,z) = (" +tempAcceleration + ")\n"+"Velocity = (x,y,z) = ("+ tempVelocity + ")";
+            data.text = "AccelerationVelocity = (x,y,z) = (" +tempAcceleration + ")\n"+"Velocity = (x,y,z) = ("+ tempVelocity + ")"+"\n"+"Rotation = (x,y,z) = ("+ tempRotation + ")";
         }
     }
 }

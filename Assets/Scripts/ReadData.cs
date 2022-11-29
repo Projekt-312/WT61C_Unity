@@ -36,9 +36,10 @@ namespace DefaultNamespace
 
         public void TryReadData(string path)
         {
-            var sr = new StreamReader(path);
-            StartCoroutine(WaitAndRead(sr));
-                // while ((line = sr.ReadLine()) != null)
+            var accReader = new StreamReader(path);
+            var aguReader = new StreamReader(path);
+            StartCoroutine(WaitAndRead(accReader,aguReader));
+            // while ((line = sr.ReadLine()) != null)
                 // {
                 //     
                 //     //print("line:"+line);
@@ -49,16 +50,22 @@ namespace DefaultNamespace
 
         }
 
-        private IEnumerator WaitAndRead(StreamReader dataFile)
+        private IEnumerator WaitAndRead(StreamReader dataFile1,StreamReader dataFile2)
         {
-            var line = string.Empty;
-            while ((line = dataFile.ReadLine()) != null)
+            var line1 = string.Empty;
+            while ((line1 = dataFile1.ReadLine()) != null)
             {
                 yield return new WaitForSeconds(0.02f);
-                var data = line.Split('[');
+                var line2 = string.Empty;
+                line2 = dataFile2.ReadLine();
+                
+                var data1 = line1.Split('[');
+                var data2 = line2.Split('[');
+                
                 print("time: "+Time.time);
-                print( "data:"+data[0]+' '+data[1]+' '+data[2]);
-                acVcon.angularInput = new Vector3(float.Parse(data[0]),float.Parse(data[1]),float.Parse(data[2]));
+                print( "data:"+data1[0]+' '+data1[1]+' '+data1[2]);
+                acVcon.accInput = new Vector3(float.Parse(data1[0]),float.Parse(data1[1]),float.Parse(data1[2]));
+                acVcon.angInput = new Vector3(float.Parse(data2[0]),float.Parse(data2[1]),float.Parse(data2[2]));
             }
         }
     }
