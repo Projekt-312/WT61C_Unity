@@ -1,0 +1,4 @@
+repository "VTOL_test@lylilaaa@cloud.cn"
+  path "/"
+    br "/main"
+    co "/main"
