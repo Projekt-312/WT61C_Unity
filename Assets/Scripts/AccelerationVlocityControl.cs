@@ -19,16 +19,16 @@ namespace DefaultNamespace
         private Vector3 lastVelocity;
         private Vector3 nowVelocity;
         private Vector3 lastAngleInput;
+        private Vector3 firstRotation;
+        private bool isFirst = true;
 
         private float[] senSorFloats;
         //private float timer;
 
         private void Start()
         {
-            //lastInput = accInput;
             rigi = GetComponent<Rigidbody>();
             lastVelocity = rigi.velocity;
-            //timer = 0f;
             velocityShown = rigi.velocity;
             lastAngleInput = Vector3.zero;
         }
@@ -37,15 +37,27 @@ namespace DefaultNamespace
         {
             //结果展示
             //print("sensorInput: "+sensorInput);
+
+            
             velocityShown = rigi.velocity;
-            rotationShown = rigi.rotation.eulerAngles;
+            rotationShown = angInput;
             
             float[] senSorFloats = new float[6];
             senSorFloats = StringSplit(sensorInput);
+            
             accInput = new Vector3(senSorFloats[0], senSorFloats[1], senSorFloats[2]);
+            
             angInput = new Vector3(senSorFloats[3], senSorFloats[4], senSorFloats[5]);
             
-            //lastInput = accInput;
+            if (isFirst)
+            {
+                SetXfirst(angInput);
+                SetYfirst(angInput);
+                SetZfirst(angInput);
+                isFirst = false;
+            }
+            
+            //速度控制
             nowVelocity = lastVelocity + accInput * acc_g * 0.02f;//v = v0 + at
             lastVelocity = nowVelocity;
             rigi.velocity = nowVelocity;
@@ -55,6 +67,7 @@ namespace DefaultNamespace
             SetY(lastAngleInput,angInput);
             SetZ(lastAngleInput,angInput);
             lastAngleInput = angInput;
+            //静态读取方案
             //rigi.rotation = Quaternion.Euler(angInput);
 
             // timer += Time.fixedDeltaTime;//当加速度没有产生变化时，计时器启动
@@ -70,7 +83,7 @@ namespace DefaultNamespace
 
         }
 
-        private float[] StringSplit(string inputString)
+        private float[] StringSplit(string inputString)//处理与分割数据
         {
             var data1 = inputString.Split(' ');
             List<string> splitedList = new List<string>();
@@ -102,13 +115,31 @@ namespace DefaultNamespace
         }
         void SetY(Vector3 oldAngleInput,Vector3 nowAngleInput)
         {
-            Quaternion t_adj = Quaternion.AngleAxis(nowAngleInput.y-oldAngleInput.y, -Vector3.right);
+            Quaternion t_adj = Quaternion.AngleAxis(nowAngleInput.y-oldAngleInput.y, Vector3.right);
             Quaternion t_delta = gameObject.transform.localRotation * t_adj;
             gameObject.transform.localRotation = t_delta;
         }
         void SetZ(Vector3 oldAngleInput,Vector3 nowAngleInput)
         {
             Quaternion t_adj = Quaternion.AngleAxis(nowAngleInput.z-oldAngleInput.z, Vector3.forward);
+            Quaternion t_delta = gameObject.transform.localRotation * t_adj;
+            gameObject.transform.localRotation = t_delta;
+        }
+        void SetXfirst(Vector3 nowAngleInput)
+        {
+            Quaternion t_adj = Quaternion.AngleAxis(nowAngleInput.x, Vector3.up);
+            Quaternion t_delta = gameObject.transform.localRotation * t_adj;
+            gameObject.transform.localRotation = t_delta;
+        }
+        void SetYfirst(Vector3 nowAngleInput)
+        {
+            Quaternion t_adj = Quaternion.AngleAxis(nowAngleInput.y, Vector3.right);
+            Quaternion t_delta = gameObject.transform.localRotation * t_adj;
+            gameObject.transform.localRotation = t_delta;
+        }
+        void SetZfirst(Vector3 nowAngleInput)
+        {
+            Quaternion t_adj = Quaternion.AngleAxis(nowAngleInput.z, Vector3.forward);
             Quaternion t_delta = gameObject.transform.localRotation * t_adj;
             gameObject.transform.localRotation = t_delta;
         }
