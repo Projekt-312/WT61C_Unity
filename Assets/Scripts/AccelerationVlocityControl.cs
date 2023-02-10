@@ -47,7 +47,7 @@ namespace DefaultNamespace
             
             accInput = new Vector3(senSorFloats[0], senSorFloats[1], senSorFloats[2]);
             
-            angInput = new Vector3(senSorFloats[3], senSorFloats[4], senSorFloats[5]);
+            angInput = new Vector3(senSorFloats[3], senSorFloats[5], senSorFloats[4]);
             
             if (isFirst)
             {
@@ -67,6 +67,9 @@ namespace DefaultNamespace
             SetY(lastAngleInput,angInput);
             SetZ(lastAngleInput,angInput);
             lastAngleInput = angInput;
+            
+            
+            
             //静态读取方案
             //rigi.rotation = Quaternion.Euler(angInput);
 
@@ -125,6 +128,7 @@ namespace DefaultNamespace
             Quaternion t_delta = gameObject.transform.localRotation * t_adj;
             gameObject.transform.localRotation = t_delta;
         }
+        
         void SetXfirst(Vector3 nowAngleInput)
         {
             Quaternion t_adj = Quaternion.AngleAxis(nowAngleInput.x, Vector3.up);
