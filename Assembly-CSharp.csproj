@@ -52,26 +52,27 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\testRotate.cs" />
-     <Compile Include="Assets\Scripts\ReadData.cs" />
-     <Compile Include="Assets\Scripts\ReadTxt.cs" />
-     <Compile Include="Assets\Scripts\CameraConst.cs" />
-     <Compile Include="Assets\Scripts\DataUI.cs" />
-     <Compile Include="Assets\Scripts\AccelerationVlocityControl.cs" />
-     <Compile Include="Assets\Scripts\ConstantForce.cs" />
-     <Compile Include="Assets\ConstRotationCamera.cs" />
-     <Compile Include="Assets\Scripts\SimpleCameraFollower.cs" />
-     <Compile Include="Assets\Scripts\GameLogic.cs" />
-     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
-     <Compile Include="Assets\Scripts\GameData.cs" />
-     <Compile Include="Assets\SpawnPlayer.cs" />
-     <Compile Include="Assets\Scripts\WebReadData.cs" />
-     <Compile Include="Assets\Prefabs\SceneObjects\CheckPoint.cs" />
-     <Compile Include="Assets\Scripts\AddTorqueTest.cs" />
-     <Compile Include="Assets\Prefabs\SceneObjects\ScoreRing\Script\ScoreRing.cs" />
-     <Compile Include="Assets\Prefabs\Drones\Low_Poly_Drone01\Script\RealisticDroneController.cs" />
+     <Compile Include="Assets\Scripts\Tester\testRotate.cs" />
+     <Compile Include="Assets\Scripts\DataRead\ReadData.cs" />
+     <Compile Include="Assets\Scripts\DataRead\WebReadData.cs" />
+     <Compile Include="Assets\Scripts\CameraControl\SimpleCameraFollower.cs" />
+     <Compile Include="Assets\Scripts\DataRead\ReadTxt.cs" />
      <Compile Include="Assets\StartPoint.cs" />
-     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\SpawnPlayer.cs" />
+     <Compile Include="Assets\Scripts\CameraControl\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\Tester\AddTorqueTest.cs" />
+     <Compile Include="Assets\Prefabs\SceneObjects\ScoreRing\Script\ScoreRing.cs" />
+     <Compile Include="Assets\ConstRotationCamera.cs" />
+     <Compile Include="Assets\Scripts\CameraControl\CameraConst.cs" />
+     <Compile Include="Assets\Scripts\CameraControl\SimpleCameraController.cs" />
+     <Compile Include="Assets\Scripts\DataRead\GameData.cs" />
+     <Compile Include="Assets\Scripts\InputSettings\JoyStickInputSetting.cs" />
+     <Compile Include="Assets\Scripts\DroneControl\RealisticDroneController.cs" />
+     <Compile Include="Assets\Scripts\DataRead\DataUI.cs" />
+     <Compile Include="Assets\Scripts\DroneControl\AccelerationVlocityControl.cs" />
+     <Compile Include="Assets\Scripts\GameControl\ConstantForce.cs" />
+     <Compile Include="Assets\Prefabs\SceneObjects\CheckPoint.cs" />
+     <Compile Include="Assets\Scripts\GameControl\GameLogic.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Data\data.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
