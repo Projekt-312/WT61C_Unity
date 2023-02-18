@@ -10,6 +10,7 @@ public class CameraFollow : MonoBehaviour
     private void Update()
     {
         //transform.localPosition = Vector3.Lerp(transform.localPosition,followedObj.transform.localPosition,Time.deltaTime*100) ;
-        transform.localPosition = followedObj.transform.localPosition ;
+        transform.localPosition = followedObj.transform.localPosition;
+        transform.rotation = Quaternion.Euler(0,followedObj.transform.rotation.eulerAngles.y,0);
     }
 }
