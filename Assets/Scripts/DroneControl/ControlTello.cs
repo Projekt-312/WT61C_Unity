@@ -14,9 +14,10 @@ public class ControlTello : MonoBehaviour
     public Socket server;
     EndPoint localaddr, telloaddr;
     Thread thread;
-    WaitForSeconds time0 = new WaitForSeconds(0.005f);
+    WaitForSeconds time0 = new WaitForSeconds(0f);
     WaitForSeconds time1 = new WaitForSeconds(0f);
     byte[] result = new byte[1024];
+    bool isOK = true;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,7 @@ public class ControlTello : MonoBehaviour
         print("等待客户端连接");
         StartCoroutine("sendCommands");
         thread = new Thread(receiveData);
+        thread.Start();
     }
 
     // Update is called once per frame
@@ -41,86 +43,90 @@ public class ControlTello : MonoBehaviour
         while (true)
         {
             bool flag = false;
-            if (Input.GetKeyDown(KeyCode.C))
+            if (isOK)
             {
-                server.SendTo(Encoding.UTF8.GetBytes("command"), telloaddr);
-                print("command");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.Z))
-            {
-                print("end");
-                thread.Abort();
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("command"), telloaddr);
+                    print("command");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    print("end");
+                    thread.Abort();
 
-            }
-            else if (Input.GetKeyDown(KeyCode.J))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("takeoff"), telloaddr);
-                print("takeoff");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.K))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("land"), telloaddr);
-                print("land");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.W))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("forward 20"), telloaddr);
-                print("forward");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("back 20"), telloaddr);
-                print("back");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("left 20"), telloaddr);
-                print("left");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("right 20"), telloaddr);
-                print("right");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("up 20"), telloaddr);
-                print("up");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("down 20"), telloaddr);
-                print("down");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.Space))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("emergency"), telloaddr);
-                print("emergency");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.Q))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("ccw 90"), telloaddr);
-                print("ccw");
-                flag = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.E))
-            {
-                server.SendTo(Encoding.UTF8.GetBytes("cw 90"), telloaddr);
-                print("cw");
-                flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.J))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("takeoff"), telloaddr);
+                    print("takeoff");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.K))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("land"), telloaddr);
+                    print("land");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.W))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("forward 50"), telloaddr);
+                    print("forward");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("back 50"), telloaddr);
+                    print("back");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.A))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("left 50"), telloaddr);
+                    print("left");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.D))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("right 50"), telloaddr);
+                    print("right");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("up 50"), telloaddr);
+                    print("up");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("down 50"), telloaddr);
+                    print("down");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("emergency"), telloaddr);
+                    print("emergency");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("ccw 90"), telloaddr);
+                    print("ccw");
+                    flag = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.E))
+                {
+                    server.SendTo(Encoding.UTF8.GetBytes("cw 90"), telloaddr);
+                    print("cw");
+                    flag = true;
+                }
             }
             if (flag)
             {
+                isOK = false;
                 yield return time0;
             }
             else
@@ -136,9 +142,14 @@ public class ControlTello : MonoBehaviour
         while (true)
         {
             count = server.Receive(result);
-            print("recv: " + count);
             if (count > 0)
-                print(Encoding.UTF8.GetString(result));
+            {
+                if(count >= 2)
+                {
+                    isOK = true;
+                }
+                print(Encoding.UTF8.GetString(result, 0, count));
+            }
         }
     }
 }

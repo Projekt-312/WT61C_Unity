@@ -17,6 +17,7 @@ public class DirectDroneController : MonoBehaviour
     public GameObject propeller04;
     
     public TMP_Text VelocityShown;
+    public TMP_Text HeightShown;
     
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class DirectDroneController : MonoBehaviour
              rotateDroneFake();
         }
         VelocityShown.text = droneRigi.velocity.ToString();
+        HeightShown.text = transform.position.y.ToString();
         if (KeyBoardInputSetting._instance.startKeyControl)
         {
             if (KeyBoardInputSetting._instance.takeOff)
@@ -42,7 +44,15 @@ public class DirectDroneController : MonoBehaviour
             }
             if (KeyBoardInputSetting._instance.descent)
             {
-                onSky = false;
+                if (transform.position.y >= 0.5f)
+                {
+                    droneRigi.velocity = Vector3.Lerp(droneRigi.velocity,-10f*tits.transform.up,Time.deltaTime) ;
+                }
+                else
+                {
+                    onSky = false;
+                    StartCoroutine("DescentHovering");
+                }
             }
             if (KeyBoardInputSetting._instance.moveFront)
             {
@@ -132,6 +142,13 @@ public class DirectDroneController : MonoBehaviour
         backHovering();
         KeyBoardInputSetting._instance.takeOff = false;
     }
+    IEnumerator DescentHovering()
+    {
+        yield return new WaitForSeconds(0.0f);
+        backHovering();
+        KeyBoardInputSetting._instance.descent = false;
+    }
+    
 
     IEnumerator MoveFrontHovering()
     {

@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Tester\testRotate.cs" />
      <Compile Include="Assets\Scripts\DataRead\ReadData.cs" />
      <Compile Include="Assets\Scripts\DataRead\WebReadData.cs" />
+     <Compile Include="Assets\Scripts\DroneControl\DroneControllerPID.cs" />
      <Compile Include="Assets\Scripts\CameraControl\SimpleCameraFollower.cs" />
      <Compile Include="Assets\Scripts\DataRead\ReadTxt.cs" />
      <Compile Include="Assets\StartPoint.cs" />

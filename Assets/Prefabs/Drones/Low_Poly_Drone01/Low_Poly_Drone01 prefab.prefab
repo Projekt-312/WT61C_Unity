@@ -207,7 +207,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6645681865815541173}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 1
   m_UseGravity: 1
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6645681865815541173}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fae9d837de4aeee44a68fac0010d774b, type: 3}
   m_Name: 
@@ -331,18 +331,7 @@ MonoBehaviour:
   propeller03: {fileID: 2262463556221436471}
   propeller04: {fileID: 6849098262199950581}
   VelocityShown: {fileID: 0}
---- !u!114 &1777864834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6645681865815541173}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9fb31a1696682a4d8098e625a965359, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  HeightShown: {fileID: 0}
 --- !u!114 &5944470214618881166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,6 +407,18 @@ MonoBehaviour:
   HeightShown: {fileID: 0}
   VelocityShown: {fileID: 0}
   air_resistance: 0.5
+--- !u!114 &1777864828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645681865815541173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9fb31a1696682a4d8098e625a965359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8337146130119581930
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0076, y: 0.102}
+  m_AnchoredPosition: {x: -0.0076, y: 0.065}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1810197011308606702
